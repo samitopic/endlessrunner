@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpcjp4xaicqdf"]
+
+[ext_resource type="Script" path="res://runner_tile.gd" id="1_ji7fv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pa2hc"]
+size = Vector3(10, 1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7q0b7"]
+albedo_color = Color(0.760784, 0.188235, 0.121569, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lj12d"]
+material = SubResource("StandardMaterial3D_7q0b7")
+size = Vector3(10, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ohia1"]
+size = Vector3(5, 2.5, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fgkdk"]
+size = Vector3(5, 2.5, 5)
+
+[node name="Runnertile" type="Node3D"]
+script = ExtResource("1_ji7fv")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_pa2hc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_lj12d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.933955, -0.35739, 0, 0.35739, 0.933955, 2.49476, -0.276299, 1.95313)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ohia1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_fgkdk")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 2.4904, 0.299819, -2.84331)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_ohia1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_fgkdk")
+skeleton = NodePath("../../StaticBody3D2")

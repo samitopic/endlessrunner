@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://w2xmxt8t6825"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_o60la"]
+[ext_resource type="Script" path="res://main.gd" id="1_u65p2"]
+[ext_resource type="PackedScene" uid="uid://cgkebi1s6ofvp" path="res://runner_tile_01.tscn" id="2_0fn8r"]
+[ext_resource type="PackedScene" uid="uid://ct6ynsb3u8ehg" path="res://runner_tile_02.tscn" id="3_hiwg4"]
+
+[sub_resource type="Environment" id="Environment_4wcbk"]
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ofe4k"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_u65p2")
+tiles = Array[PackedScene]([ExtResource("2_0fn8r"), ExtResource("3_hiwg4")])
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4wcbk")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_o60la")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_ofe4k")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.494102, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]

@@ -1,0 +1,110 @@
+[gd_scene load_steps=17 format=3 uid="uid://cgkebi1s6ofvp"]
+
+[ext_resource type="Script" path="res://runner_tile.gd" id="1_mxljo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pa2hc"]
+size = Vector3(10, 1, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7q0b7"]
+albedo_color = Color(0.105882, 0.682353, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lj12d"]
+material = SubResource("StandardMaterial3D_7q0b7")
+size = Vector3(10, 1, 20)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bx861"]
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hmi1o"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_iy2s7"]
+material = SubResource("StandardMaterial3D_hmi1o")
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fr7h3"]
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_etwbi"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fi4lc"]
+material = SubResource("StandardMaterial3D_etwbi")
+height = 1.5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lwukq"]
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_inybv"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rfrjk"]
+material = SubResource("StandardMaterial3D_inybv")
+height = 1.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_f0ufc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ses3g"]
+albedo_color = Color(0.685104, 0.683121, 2.31028e-06, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r1d1a"]
+material = SubResource("StandardMaterial3D_ses3g")
+height = 0.5
+
+[node name="Runnertile" type="Node3D"]
+script = ExtResource("1_mxljo")
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_pa2hc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_lj12d")
+
+[node name="Obstacle" type="Area3D" parent="."]
+transform = Transform3D(0.752748, 0, 0.658309, 0, 1, 0, -0.658309, 0, 0.752748, -1.62958, 0.829547, 5.79696)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle"]
+shape = SubResource("CapsuleShape3D_bx861")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacle"]
+mesh = SubResource("CapsuleMesh_iy2s7")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="Obstacle2" type="Area3D" parent="."]
+transform = Transform3D(0.752748, 0, 0.658309, 0, 1, 0, -0.658309, 0, 0.752748, -1.62958, 1.02778, -2.85995)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle2"]
+shape = SubResource("CapsuleShape3D_fr7h3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacle2"]
+mesh = SubResource("CapsuleMesh_fi4lc")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="Obstacle3" type="Area3D" parent="."]
+transform = Transform3D(0.752748, 0, 0.658309, 0, 1, 0, -0.658309, 0, 0.752748, 3.4056, 0.864464, 2.7241)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacle3"]
+shape = SubResource("CapsuleShape3D_lwukq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacle3"]
+mesh = SubResource("CapsuleMesh_rfrjk")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="coin" type="Area3D" parent="."]
+transform = Transform3D(0.752748, 0, 0.658309, 0, 1, 0, -0.658309, 0, 0.752748, 3.4056, 1.09662, -2.99592)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="coin"]
+shape = SubResource("CylinderShape3D_f0ufc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="coin"]
+transform = Transform3D(0.703233, -0.710959, 3.1077e-08, 0, -4.37114e-08, -1, 0.710959, 0.703233, -3.07393e-08, 0, -0.469497, 0)
+mesh = SubResource("CylinderMesh_r1d1a")
+skeleton = NodePath("../CollisionShape3D")
+
+[connection signal="body_entered" from="Obstacle" to="." method="_on_obstacle_body_entered"]
+[connection signal="body_entered" from="Obstacle2" to="." method="_on_obstacle_body_entered"]
+[connection signal="body_entered" from="Obstacle3" to="." method="_on_obstacle_body_entered"]
+[connection signal="body_entered" from="coin" to="." method="_on_coin_body_entered"]
